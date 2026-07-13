@@ -1,0 +1,18 @@
+{% load wagtailimages_tags %}
+{% if value.show_section %}
+<section class="mx-auto max-w-7xl px-5 py-16">
+  <h2 class="text-3xl font-semibold">{% if LANGUAGE_CODE == "ar" %}{{ value.title_ar }}{% else %}{{ value.title_en }}{% endif %}</h2>
+  {% if value.images %}
+    <div class="gallery-card reveal mt-8 overflow-hidden rounded-md bg-hig-ink p-2 shadow-xl" data-gallery-carousel data-gallery-images="{% for item in value.images %}{% image item fill-1400x860 as gallery_image %}{{ gallery_image.url }}{% if not forloop.last %}|{% endif %}{% endfor %}">
+      {% image value.images.0 fill-1400x860 class="h-[420px] w-full rounded-md object-cover md:h-[560px]" loading="lazy" %}
+    </div>
+    <div class="mt-4 grid gap-4 md:grid-cols-4">
+      {% for item in value.images %}
+        <button type="button" class="gallery-thumb overflow-hidden rounded-md" data-gallery-thumb="{{ forloop.counter0 }}" aria-label="Show gallery image {{ forloop.counter }}">
+          {% image item fill-420x280 class="h-28 w-full object-cover transition duration-500 hover:scale-105" %}
+        </button>
+      {% endfor %}
+    </div>
+  {% endif %}
+</section>
+{% endif %}

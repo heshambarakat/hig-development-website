@@ -1,0 +1,13 @@
+{% if value.show_section %}
+<section class="mx-auto max-w-7xl px-5 py-16">
+  <h2 class="text-3xl font-semibold">{% if LANGUAGE_CODE == "ar" %}{{ value.title_ar }}{% else %}{{ value.title_en }}{% endif %}</h2>
+  <div class="mt-8 grid gap-4 md:grid-cols-4">
+    {% for place in value.places %}
+      <div class="reveal rounded-md bg-white p-5">
+        <div class="font-semibold">{% if LANGUAGE_CODE == "ar" %}{{ place.name_ar }}{% else %}{{ place.name_en }}{% endif %}</div>
+        <div class="mt-1 text-sm text-black/55">{% if LANGUAGE_CODE == "ar" %}{{ place.distance_ar }}{% else %}{{ place.distance_en }}{% endif %}</div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}

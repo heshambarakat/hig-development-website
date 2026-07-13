@@ -1,0 +1,272 @@
+{% load static %}
+<!doctype html>
+<html lang="{{ lang_code }}" dir="{{ t.dir }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ t.title }}</title>
+  <meta name="description" content="{{ t.description }}">
+  <link rel="stylesheet" href="{% static 'css/newweb.css' %}">
+  {% if site_controls %}
+  <style>
+    :root {
+      --blue: {{ site_controls.primary_color }};
+      --ink: {{ site_controls.dark_color }};
+      --soft: {{ site_controls.light_color }};
+      --body-font-size: {{ site_controls.body_font_size }}px;
+      --nav-font-size: {{ site_controls.navigation_font_size }}px;
+      --hero-title-size: {{ site_controls.hero_title_size }}px;
+      --section-title-size: {{ site_controls.section_title_size }}px;
+      --project-title-size: {{ site_controls.project_title_size }}px;
+      --body-line-height: {{ site_controls.body_line_height }};
+      --arabic-title-line-height: {{ site_controls.arabic_title_line_height }};
+      --section-spacing: {{ site_controls.section_spacing }}px;
+      --content-max-width: {{ site_controls.content_max_width }}px;
+      --header-height: {{ site_controls.header_height }}px;
+      --logo-width: {{ site_controls.logo_width }}px;
+      --hero-min-height: {{ site_controls.hero_min_height }}vh;
+      --card-radius: {{ site_controls.card_radius }}px;
+      --form-opacity: {{ site_controls.form_opacity }};
+    }
+  </style>
+  {% endif %}
+</head>
+<body data-tracking-enabled="{% if request.user.is_staff or request.is_preview %}no{% else %}yes{% endif %}">
+  <div class="nw-page">
+    {% if not site_controls or site_controls.show_header %}
+    <header class="nw-header" data-newweb-header>
+      <div class="nw-header-actions">
+        <button class="nw-menu-button" type="button" data-newweb-menu aria-controls="new-site-drawer" aria-expanded="false" aria-label="{{ t.menu }}">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <a class="nw-brand" href="/{{ lang_code }}/" aria-label="HIG Development">
+        <img src="{% static 'img/logos/hig-white.png' %}" alt="HIG Development">
+      </a>
+      <nav class="nw-nav" aria-label="Main navigation">
+        <a href="#who">{{ t.nav.0 }}</a>
+        <a href="#projects">{{ t.nav.1 }}</a>
+        <a href="#board">{{ t.nav.2 }}</a>
+        <a href="#insights">{{ t.nav.3 }}</a>
+        <a href="#contact">{{ t.nav.4 }}</a>
+      </nav>
+      <a class="nw-hotline" href="tel:{% if site_controls %}{{ site_controls.hotline }}{% else %}17556{% endif %}">Hotline: {% if site_controls %}{{ site_controls.hotline }}{% else %}17556{% endif %}</a>
+      <div class="nw-socials" aria-label="Social media">
+        <a href="{% if site_controls.instagram_url %}{{ site_controls.instagram_url }}{% else %}#{% endif %}" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm5 3.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Zm0 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Zm5.25-.85a.9.9 0 1 1 0-1.8.9.9 0 0 1 0 1.8Z"/></svg></a>
+        <a href="{% if site_controls.youtube_url %}{{ site_controls.youtube_url }}{% else %}#{% endif %}" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 7.2s-.2-1.5-.8-2.1c-.8-.8-1.7-.8-2.1-.9C15.8 4 12 4 12 4s-3.8 0-6.7.2c-.4.1-1.3.1-2.1.9-.6.6-.8 2.1-.8 2.1S2.2 9 2.2 10.8v1.7c0 1.8.2 3.6.2 3.6s.2 1.5.8 2.1c.8.8 1.9.8 2.4.9 1.7.2 6.4.2 6.4.2s3.8 0 6.7-.2c.4-.1 1.3-.1 2.1-.9.6-.6.8-2.1.8-2.1s.2-1.8.2-3.6v-1.7c0-1.8-.2-3.6-.2-3.6ZM10 14.6V8.8l5.2 2.9L10 14.6Z"/></svg></a>
+        <a href="{% if site_controls.linkedin_url %}{{ site_controls.linkedin_url }}{% else %}#{% endif %}" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.7h4v10.8H3V9.7Zm6.2 0H13v1.5h.1c.5-.9 1.8-1.8 3.6-1.8 3.9 0 4.6 2.6 4.6 5.9v5.2h-4v-4.6c0-1.1 0-2.6-1.6-2.6s-1.8 1.2-1.8 2.5v4.7h-4V9.7Z"/></svg></a>
+        <a href="{% if site_controls.facebook_url %}{{ site_controls.facebook_url }}{% else %}#{% endif %}" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4h-3c-3 0-5 2-5 5v2H6v4h3v7h4v-7h3.2l.8-4h-4V9c0-.6.4-1 1-1Z"/></svg></a>
+      </div>
+      <a class="nw-lang-switch" href="/{% if lang_code == 'ar' %}en{% else %}ar{% endif %}/">
+        <span>{% if lang_code == "ar" %}English{% else %}العربية{% endif %}</span>
+        <span class="nw-flag">{% if lang_code == "ar" %}🇺🇸{% else %}🇪🇬{% endif %}</span>
+      </a>
+    </header>
+    {% endif %}
+
+    <aside id="new-site-drawer" class="nw-drawer" data-newweb-drawer aria-hidden="true" inert>
+      <div class="nw-drawer-bg"></div>
+      <button class="nw-drawer-close" type="button" data-newweb-close aria-label="{{ t.close }}">×</button>
+      <img class="nw-drawer-logo" src="{% static 'img/logos/hig-white.png' %}" alt="HIG Development">
+      <div class="nw-drawer-slogan"><h2>WE KNOW<br>THE ROUTE</h2></div>
+      <nav class="nw-drawer-nav" aria-label="{{ t.menu }}">
+        <a href="#who">{{ t.nav.0 }}</a>
+        <a href="#projects">{{ t.nav.1 }}</a>
+        <a href="#board">{{ t.nav.2 }}</a>
+        <a href="#insights">{{ t.nav.3 }}</a>
+        <a href="#contact">{{ t.nav.4 }}</a>
+        <a class="nw-drawer-lang" href="{{ t.other_url }}">{% if lang_code == "ar" %}English 🇺🇸{% else %}العربية 🇪🇬{% endif %}</a>
+      </nav>
+    </aside>
+
+    <main>
+      {% if not site_controls or site_controls.show_hero %}<section class="nw-hero" id="top">
+        <video class="nw-hero-video" autoplay muted loop playsinline poster="{% static 'img/newweb/barah-night.jpg' %}">
+          <source src="{% if site_controls.hero_video %}{{ site_controls.hero_video.url }}{% else %}{% static 'videos/hig/hig-hero.mp4' %}{% endif %}" type="video/mp4">
+        </video>
+        <div class="nw-hero-shade"></div>
+        <div class="nw-hero-content">
+          <p class="nw-kicker">HIG Development</p>
+          <h1>{{ t.hero_title|linebreaksbr }}</h1>
+          <p>{{ t.hero_text }}</p>
+          <div class="nw-hero-actions">
+            <a href="#projects">{{ t.explore }}</a>
+            <a href="#contact">{{ t.request }}</a>
+          </div>
+        </div>
+        <div class="nw-hero-side">HIG DEVELOPMENT</div>
+      </section>
+      {% endif %}
+
+      <section class="nw-who nw-section" id="who">
+        <div class="nw-section-label">{{ t.who_label }}</div>
+        <div class="nw-who-grid">
+          <div><h2>{{ t.who_title }}</h2></div>
+          <div>
+            <p>{{ t.who_text }}</p>
+            <a class="nw-link" href="/{{ lang_code }}/about/">{{ t.learn_more }}</a>
+          </div>
+        </div>
+        {% if not site_controls or site_controls.show_stats %}<div class="nw-stats" data-newweb-stats>
+          <article><strong data-count="10">0</strong><span>{{ t.stats.0 }}</span></article>
+          <article><strong data-count="50">0</strong><span>{{ t.stats.1 }}</span></article>
+          <article><strong data-count="950">0</strong><span>{{ t.stats.2 }}</span></article>
+          <article><strong data-count="79">0</strong><span>{{ t.stats.3 }}</span></article>
+        </div>{% endif %}
+      </section>
+
+      {% if not site_controls or site_controls.show_featured_project %}
+      <section class="nw-featured-project" id="projects">
+        <div class="nw-project-media">
+          <video autoplay muted loop playsinline poster="{% static 'img/newweb/barah-hero.jpg' %}">
+            <source src="{% static 'videos/barah/final-x-web.mp4' %}" type="video/mp4">
+          </video>
+        </div>
+        <div class="nw-project-copy">
+          <p>{{ t.latest }}</p>
+          <h2>BARAH Residence</h2>
+          <h3>{{ t.barah_tagline }}</h3>
+          <p>{{ t.barah_text }}</p>
+          <a href="/{{ lang_code }}/projects/barah-residence/">{{ t.learn_more }}</a>
+        </div>
+      </section>
+      {% endif %}
+
+      {% if not site_controls or site_controls.show_project_lanes %}
+      <section class="nw-project-lanes">
+        <article class="nw-project-lane-video">
+          <video class="nw-lane-video" autoplay muted loop playsinline poster="{% static 'img/newweb/caza-cover.jpg' %}">
+            <source src="{% static 'videos/caza/caza-hero.mp4' %}" type="video/mp4">
+          </video>
+          <div>
+            <span>{{ t.commercial }}</span>
+            <h2>Caza Mall</h2>
+            <p>{{ t.caza_text }}</p>
+            <a href="/{{ lang_code }}/projects/caza-mall/">{{ t.learn_more }}</a>
+          </div>
+        </article>
+        <article style="--image: url('{% static 'img/newweb/il-centro.jpg' %}')">
+          <div>
+            <span>{{ t.commercial }}</span>
+            <h2>IL Centro Mall</h2>
+            <p>{{ t.centro_text }}</p>
+            <a href="/{{ lang_code }}/projects/il-centro-mall/">{{ t.learn_more }}</a>
+          </div>
+        </article>
+        <article style="--image: url('{% static 'img/newweb/il-parco.jpg' %}')">
+          <div>
+            <span>{{ t.commercial }}</span>
+            <h2>IL Parco Mall</h2>
+            <p>{{ t.parco_text }}</p>
+            <a href="/{{ lang_code }}/projects/il-parco-mall/">{{ t.learn_more }}</a>
+          </div>
+        </article>
+      </section>
+      {% endif %}
+
+      {% if not site_controls or site_controls.show_projects_grid %}
+      <section class="nw-projects-grid nw-section">
+        <div class="nw-section-label">{{ t.featured_label }}</div>
+        <div class="nw-grid-head">
+          <h2>{{ t.featured_title }}</h2>
+          <a class="nw-link" href="/{{ lang_code }}/projects/">{{ t.view_all }}</a>
+        </div>
+        <div class="nw-filter-row">
+          {% for filter in t.filters %}
+            <button class="{% if forloop.first %}is-active{% endif %}">{{ filter }}</button>
+          {% endfor %}
+        </div>
+        <div class="nw-card-grid">
+          <article><img src="{% static 'img/newweb/barah-night.jpg' %}" alt="BARAH Residence"><div class="nw-card-title"><h3>BARAH Residence</h3><img src="{% static 'img/logos/barah-residence.png' %}" alt="BARAH Residence logo"></div><span>{{ t.residential }}</span></article>
+          <article><img src="{% static 'img/newweb/caza-mall.png' %}" alt="Caza Mall"><div class="nw-card-title"><h3>Caza Mall</h3><img src="{% static 'img/logos/caza-mall.png' %}" alt="Caza Mall logo"></div><span>{{ t.commercial }}</span></article>
+          <article><img src="{% static 'img/newweb/il-centro.jpg' %}" alt="IL Centro Mall"><div class="nw-card-title"><h3>IL Centro Mall</h3><img src="{% static 'img/logos/il-centro-mall.png' %}" alt="IL Centro Mall logo"></div><span>{{ t.commercial }}</span></article>
+          <article><img src="{% static 'img/newweb/il-parco.jpg' %}" alt="IL Parco Mall"><div class="nw-card-title"><h3>IL Parco Mall</h3><img src="{% static 'img/logos/il-parco-mall.png' %}" alt="IL Parco Mall logo"></div><span>{{ t.commercial }}</span></article>
+        </div>
+      </section>
+      {% endif %}
+
+      {% if not site_controls or site_controls.show_board %}
+      <section class="nw-board nw-section" id="board">
+        <div class="nw-section-label">{{ t.team_label }}</div>
+        <div class="nw-grid-head">
+          <h2>{{ t.team_title }}</h2>
+          <p>{{ t.team_text }}</p>
+        </div>
+        <div class="nw-board-grid">
+          <article><img src="{% static 'img/newweb/eng-ahmed-ashour.png' %}" alt="Eng. Ahmed Ashour"><h3>{% if lang_code == "ar" %}م. أحمد عاشور{% else %}Eng. Ahmed Ashour{% endif %}</h3><p>{{ t.vice }}</p></article>
+          <article><img src="{% static 'img/newweb/eng-alaa-el-hosary.png' %}" alt="Eng. Alaa El Hosary"><h3>{% if lang_code == "ar" %}م. علاء الحصري{% else %}Eng. Alaa El Hosary{% endif %}</h3><p>{{ t.chairman }}</p></article>
+          <article><img src="{% static 'img/newweb/eng-islam-senousi.png' %}" alt="Eng. Islam Senousi"><h3>{% if lang_code == "ar" %}م. إسلام سنوسي{% else %}Eng. Islam Senousi{% endif %}</h3><p>{{ t.member }}</p></article>
+        </div>
+      </section>
+      {% endif %}
+
+      {% if not site_controls or site_controls.show_insights %}
+      <section class="nw-insights nw-section" id="insights">
+        <div class="nw-section-label">{{ t.insights_label }}</div>
+        <div class="nw-grid-head">
+          <h2>{{ t.insights_title }}</h2>
+          <a class="nw-link" href="/{{ lang_code }}/news/">{{ t.view_all }}</a>
+        </div>
+        <div class="nw-insight-list">
+          <a href="/{{ lang_code }}/news/why-location-matters/">{{ t.insights.0 }}</a>
+          <a href="/{{ lang_code }}/news/barah-residence-west-cairo/">{{ t.insights.1 }}</a>
+          <a href="/{{ lang_code }}/news/commercial-destinations/">{{ t.insights.2 }}</a>
+        </div>
+      </section>
+      {% endif %}
+
+      {% if not site_controls or site_controls.show_contact %}
+      <section class="nw-contact" id="contact">
+        <div>
+          <p class="nw-kicker">{{ t.contact_label }}</p>
+          <h2>{{ t.contact_title }}</h2>
+          <p>{{ t.contact_text }}</p>
+        </div>
+        <form method="post" action="/leads/submit/" class="nw-form" data-lead-form>
+          {% csrf_token %}
+          <label class="nw-sr-only" for="nw-lead-name">{{ t.name }}</label><input id="nw-lead-name" name="name" type="text" placeholder="{{ t.name }}" required>
+          <label class="nw-sr-only" for="nw-lead-phone">{{ t.phone }}</label><input id="nw-lead-phone" name="phone" type="tel" placeholder="{{ t.phone }}" required>
+          <label class="nw-sr-only" for="nw-lead-email">{{ t.email }}</label><input id="nw-lead-email" name="email" type="email" placeholder="{{ t.email }}">
+          <label class="nw-sr-only" for="nw-lead-project">Project</label><select id="nw-lead-project" name="project">
+            <option value="HIG Development">HIG Development</option>
+            <option value="BARAH Residence">BARAH Residence</option>
+            <option value="Caza Mall">Caza Mall</option>
+            <option value="IL Centro Mall">IL Centro Mall</option>
+            <option value="IL Parco Mall">IL Parco Mall</option>
+          </select>
+          <label class="nw-sr-only" for="nw-lead-message">{{ t.message }}</label><textarea id="nw-lead-message" name="message" placeholder="{{ t.message }}"></textarea>
+          <input type="hidden" name="language" value="{{ lang_code }}">
+          <input type="hidden" name="page_url" value="{{ request.build_absolute_uri }}">
+          <input type="hidden" name="utm_source">
+          <input type="hidden" name="utm_medium">
+          <input type="hidden" name="utm_campaign">
+          <input type="hidden" name="utm_content">
+          <input type="hidden" name="utm_term">
+          <input type="hidden" name="event_id">
+          <button type="submit">{{ t.submit }}</button>
+        </form>
+      </section>
+      {% endif %}
+    </main>
+
+    {% if not site_controls or site_controls.show_footer %}<footer class="nw-footer">
+      <img src="{% static 'img/logos/hig-white.png' %}" alt="HIG Development">
+      <p>{% if t.footer_text %}{{ t.footer_text }}{% else %}WE KNOW THE ROUTE. Premium residential and commercial destinations built with clarity, trust, and long-term value.{% endif %}</p>
+      <div>
+        <a href="/{{ lang_code }}/projects/">{{ t.nav.1 }}</a>
+        <a href="https://wa.me/201144815252">WhatsApp</a>
+      </div>
+    </footer>{% endif %}
+    {% if not site_controls or site_controls.show_whatsapp %}<a class="nw-whatsapp-float" href="https://wa.me/{% if site_controls %}{{ site_controls.whatsapp_number }}{% else %}201144815252{% endif %}" target="_blank" rel="noopener" aria-label="WhatsApp">
+      <span>{% if lang_code == "ar" %}تواصل معنا{% else %}Contact us{% endif %}</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2a9.9 9.9 0 0 0-8.5 15.02L2 22l5.1-1.48A9.96 9.96 0 1 0 12.04 2Zm0 2a7.95 7.95 0 0 1 6.8 12.1 7.95 7.95 0 0 1-10.92 2.55l-.36-.22-2.5.73.74-2.4-.24-.38A7.95 7.95 0 0 1 12.04 4Zm-3.1 3.95c-.17 0-.44.06-.67.32-.23.25-.88.86-.88 2.1s.9 2.43 1.03 2.6c.13.17 1.75 2.8 4.32 3.82 2.14.85 2.58.68 3.04.64.47-.04 1.5-.61 1.72-1.2.21-.59.21-1.1.15-1.2-.06-.1-.23-.17-.48-.3-.25-.13-1.5-.74-1.73-.82-.23-.09-.4-.13-.57.13-.17.25-.65.82-.8.99-.15.17-.3.19-.55.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.25-1.5-1.4-1.75-.15-.25-.02-.39.11-.52.12-.12.25-.3.38-.44.13-.15.17-.25.25-.42.09-.17.04-.32-.02-.44-.06-.13-.57-1.37-.78-1.88-.2-.49-.41-.42-.57-.43h-.49Z"/></svg>
+    </a>{% endif %}
+    <button class="nw-back-to-top" type="button" data-newweb-top aria-label="Back to top">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4 5 11l1.4 1.4L11 7.8V20h2V7.8l4.6 4.6L19 11l-7-7Z"/></svg>
+    </button>
+    {% include "includes/cookie_consent.html" %}
+  </div>
+  <script src="{% static 'js/newweb.js' %}"></script>
+  <script src="{% static 'js/site.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+{% extends "wagtailadmin/base.html" %}
+{% block titletag %}رحلة العميل: {{ lead.name }}{% endblock %}
+{% block content %}
+{% include "wagtailadmin/shared/header.html" with title="تفاصيل العميل ورحلته" icon="form" %}
+<div class="nice-padding lead-dashboard" dir="rtl">
+  <style>
+    .lead-dashboard{max-width:1400px}.lead-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;margin-bottom:2rem}.lead-card,.lead-panel{border:1px solid #d9d9d9;border-radius:6px;background:#fff;padding:1.25rem}.lead-card span{display:block;color:#666;font-size:.85rem}.lead-card strong{display:block;margin-top:.4rem;font-size:1.25rem;color:#202020}.lead-layout{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}.lead-panel{margin-bottom:1.25rem}.lead-panel h2{margin-top:0}.lead-facts{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}.lead-fact{border-bottom:1px solid #eee;padding:.65rem 0}.lead-fact small{display:block;color:#777}.journey{position:relative;margin:0;padding:0;list-style:none}.journey:before{content:"";position:absolute;right:10px;top:10px;bottom:10px;width:2px;background:#d9e9e7}.journey li{position:relative;padding:0 2.2rem 1.5rem 0}.journey li:before{content:"";position:absolute;right:4px;top:5px;width:14px;height:14px;border-radius:50%;background:#007d7e;border:3px solid #e6f4f2}.journey strong{display:block}.journey time,.muted{color:#777;font-size:.85rem}.tag{display:inline-block;margin:.2rem;border-radius:999px;background:#e6f4f2;color:#006b6b;padding:.3rem .65rem}.sync-ok{color:#087f5b}.sync-wait{color:#a35c00}@media(max-width:900px){.lead-grid{grid-template-columns:repeat(2,1fr)}.lead-layout{grid-template-columns:1fr}.lead-facts{grid-template-columns:1fr}}
+  </style>
+  <div class="lead-grid">
+    <div class="lead-card"><span>العميل</span><strong>{{ lead.name }}</strong></div>
+    <div class="lead-card"><span>رقم الهاتف</span><strong dir="ltr">{{ lead.phone }}</strong></div>
+    <div class="lead-card"><span>المشروع</span><strong>{{ lead.project|default:"HIG Development" }}</strong></div>
+    <div class="lead-card"><span>وقت التسجيل</span><strong>{{ lead.created_at|date:"Y-m-d H:i" }}</strong></div>
+    <div class="lead-card"><span>عدد التفاعلات</span><strong>{{ event_count }}</strong></div>
+    <div class="lead-card"><span>أقصى تصفح</span><strong>{{ max_scroll_depth }}%</strong></div>
+    <div class="lead-card"><span>تفاعل الخريطة</span><strong>{{ map_interactions }}</strong></div>
+    <div class="lead-card"><span>Google Sheets</span><strong class="{% if lead.google_sheet_synced %}sync-ok{% else %}sync-wait{% endif %}">{{ lead.google_sheet_status }}</strong></div>
+  </div>
+  <div class="lead-layout">
+    <div>
+      <section class="lead-panel">
+        <h2>ملخص العميل</h2>
+        <div class="lead-facts">
+          <div class="lead-fact"><small>البريد الإلكتروني</small>{{ lead.email|default:"غير مسجل" }}</div>
+          <div class="lead-fact"><small>نوع الوحدة</small>{{ lead.unit_type|default:"غير محدد" }}</div>
+          <div class="lead-fact"><small>الميزانية</small>{{ lead.budget|default:"غير محددة" }}</div>
+          <div class="lead-fact"><small>اللغة</small>{{ lead.language|upper }}</div>
+          <div class="lead-fact"><small>صفحة التسجيل</small><a href="{{ lead.page_url }}" target="_blank">{{ lead.page_url|default:"غير مسجلة" }}</a></div>
+          <div class="lead-fact"><small>الجهاز والمتصفح</small>{{ lead.visitor_session.device_browser|default:"غير متاح" }}</div>
+        </div>
+        {% if lead.message %}<h3>رسالة العميل</h3><p>{{ lead.message }}</p>{% endif %}
+      </section>
+      <section class="lead-panel">
+        <h2>مصدر الحملة</h2>
+        <div class="lead-facts">
+          <div class="lead-fact"><small>UTM Source</small>{{ lead.utm_source|default:"Direct / غير محدد" }}</div>
+          <div class="lead-fact"><small>UTM Medium</small>{{ lead.utm_medium|default:"-" }}</div>
+          <div class="lead-fact"><small>UTM Campaign</small>{{ lead.utm_campaign|default:"-" }}</div>
+          <div class="lead-fact"><small>Event ID</small><span dir="ltr">{{ lead.event_id }}</span></div>
+        </div>
+      </section>
+      <section class="lead-panel"><h2>صفحات المشروعات التي شاهدها</h2>{% for page in project_pages %}<span class="tag">{{ page }}</span>{% empty %}<p class="muted">لم يشاهد صفحة مشروع قبل التسجيل.</p>{% endfor %}</section>
+      <section class="lead-panel"><h2>الأزرار التي ضغط عليها</h2>{% for click in cta_clicks %}<span class="tag">{{ click }}</span>{% empty %}<p class="muted">لا توجد ضغطات مسجلة.</p>{% endfor %}</section>
+      <section class="lead-panel"><h2>الوقت المستغرق في الصفحات</h2><table class="listing"><thead><tr><th>الصفحة</th><th>المدة</th></tr></thead><tbody>{% for page_url, seconds in page_times.items %}<tr><td><a href="{{ page_url }}" target="_blank">{{ page_url }}</a></td><td>{{ seconds }} ثانية</td></tr>{% empty %}<tr><td colspan="2">لا توجد مدة مسجلة بعد.</td></tr>{% endfor %}</tbody></table></section>
+    </div>
+    <section class="lead-panel">
+      <h2>رحلة العميل بالترتيب</h2>
+      <p class="muted">تسلسل واضح من أول زيارة حتى إرسال البيانات.</p>
+      <ol class="journey">
+        {% for event in journey_events %}
+        <li><strong>{{ event.friendly_label }}</strong><span>{{ event.detail_text }}</span>{% if event.page_url %}<div><a href="{{ event.page_url }}" target="_blank">{{ event.page_url }}</a></div>{% endif %}<time>{{ event.occurred_at|date:"Y-m-d H:i:s" }}</time></li>
+        {% empty %}<li><strong>لا توجد رحلة مرتبطة</strong><span>تم حفظ العميل، لكن لم تصل أحداث تصفح مرتبطة بهذه الجلسة.</span></li>{% endfor %}
+      </ol>
+    </section>
+  </div>
+</div>
+{% endblock %}

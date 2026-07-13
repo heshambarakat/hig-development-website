@@ -1,0 +1,38 @@
+{% load static hig_tags %}
+{% language_switch_url as switch_url %}
+<header class="nw-header nw-inner-header" data-newweb-header>
+  <div class="nw-header-actions">
+    <button class="nw-menu-button" type="button" data-newweb-menu aria-controls="new-site-drawer" aria-expanded="false" aria-label="{% if LANGUAGE_CODE == 'ar' %}القائمة{% else %}Menu{% endif %}">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <a class="nw-brand" href="/{{ LANGUAGE_CODE }}/" aria-label="HIG Development">
+    <img src="{% static 'img/logos/hig-white.png' %}" alt="HIG Development">
+  </a>
+  <nav class="nw-nav" aria-label="Main navigation">
+    <a href="/{{ LANGUAGE_CODE }}/projects/">{% if LANGUAGE_CODE == 'ar' %}المشاريع{% else %}Projects{% endif %}</a>
+    <a href="/{{ LANGUAGE_CODE }}/news/">{% if LANGUAGE_CODE == 'ar' %}الأخبار{% else %}News{% endif %}</a>
+    <a href="/{{ LANGUAGE_CODE }}/about/">{% if LANGUAGE_CODE == 'ar' %}من نحن{% else %}About{% endif %}</a>
+    <a href="/{{ LANGUAGE_CODE }}/contact/">{% if LANGUAGE_CODE == 'ar' %}تواصل{% else %}Contact{% endif %}</a>
+  </nav>
+  <a class="nw-hotline" href="tel:17556">Hotline: 17556</a>
+  <div class="nw-socials" aria-label="Social media"></div>
+  <a class="nw-lang-switch" href="{{ switch_url }}">
+    <span>{% if LANGUAGE_CODE == 'ar' %}English{% else %}العربية{% endif %}</span>
+    <span class="nw-flag">{% if LANGUAGE_CODE == 'ar' %}🇺🇸{% else %}🇪🇬{% endif %}</span>
+  </a>
+</header>
+<aside id="new-site-drawer" class="nw-drawer" data-newweb-drawer aria-hidden="true" inert>
+  <div class="nw-drawer-bg"></div>
+  <button class="nw-drawer-close" type="button" data-newweb-close aria-label="{% if LANGUAGE_CODE == 'ar' %}إغلاق{% else %}Close{% endif %}">×</button>
+  <img class="nw-drawer-logo" src="{% static 'img/logos/hig-white.png' %}" alt="HIG Development">
+  <div class="nw-drawer-slogan"><h2>WE KNOW<br>THE ROUTE</h2></div>
+  <nav class="nw-drawer-nav">
+    <a href="/{{ LANGUAGE_CODE }}/">{% if LANGUAGE_CODE == 'ar' %}الرئيسية{% else %}Home{% endif %}</a>
+    <a href="/{{ LANGUAGE_CODE }}/about/">{% if LANGUAGE_CODE == 'ar' %}من نحن{% else %}About{% endif %}</a>
+    <a href="/{{ LANGUAGE_CODE }}/projects/">{% if LANGUAGE_CODE == 'ar' %}المشاريع{% else %}Projects{% endif %}</a>
+    <a href="/{{ LANGUAGE_CODE }}/news/">{% if LANGUAGE_CODE == 'ar' %}الأخبار والرؤى{% else %}News & Insights{% endif %}</a>
+    <a href="/{{ LANGUAGE_CODE }}/contact/">{% if LANGUAGE_CODE == 'ar' %}تواصل معنا{% else %}Contact us{% endif %}</a>
+    <a class="nw-drawer-lang" href="{{ switch_url }}">{% if LANGUAGE_CODE == 'ar' %}English 🇺🇸{% else %}العربية 🇪🇬{% endif %}</a>
+  </nav>
+</aside>

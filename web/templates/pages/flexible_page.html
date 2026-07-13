@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load i18n static wagtailcore_tags %}
+
+{% block content %}
+  <section class="relative min-h-screen overflow-hidden bg-hig-ink text-white">
+    {% if page.slug == "about" %}
+      <video class="hero-media js-audio-video absolute inset-0 h-full w-full object-cover opacity-70" autoplay muted loop playsinline preload="metadata">
+        <source src="{% static 'videos/barah/final-x-web.mp4' %}" type="video/mp4">
+      </video>
+      <button type="button" class="video-sound-toggle" data-video-sound-toggle aria-label="Toggle video sound">
+        <svg class="sound-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Zm12.6 3 2.2-2.2-1.4-1.4-2.2 2.2L13 8.4l-1.4 1.4 2.2 2.2-2.2 2.2 1.4 1.4 2.2-2.2 2.2 2.2 1.4-1.4L16.6 12Z"/></svg>
+        <svg class="sound-on hidden" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Zm12.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4Zm-2.5-9v2.1a7 7 0 0 1 0 13.8V21a9 9 0 0 0 0-18Z"/></svg>
+      </button>
+    {% else %}
+      <video class="hero-media absolute inset-0 h-full w-full object-cover opacity-55" autoplay muted loop playsinline preload="metadata">
+        <source src="{% static 'videos/hig/hig-hero.mp4' %}" type="video/mp4">
+      </video>
+    {% endif %}
+    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/20"></div>
+    <div class="relative mx-auto flex min-h-screen max-w-7xl items-end px-5 pb-20 pt-40">
+      <div class="max-w-3xl reveal">
+        <p class="text-sm uppercase tracking-[0.28em] text-hig-gold">HIG Development</p>
+        <h1 class="mt-4 text-5xl font-semibold md:text-7xl">{{ page.title }}</h1>
+        <p class="mt-5 max-w-2xl text-lg text-white/75">
+          {% if page.slug == "about" %}
+            {% if LANGUAGE_CODE == "ar" %}شركة تطوير عقاري مصرية بجذور تنفيذ قوية ورؤية واضحة لبناء وجهات سكنية وتجارية لها قيمة طويلة المدى.{% else %}An Egyptian real estate developer with strong execution roots and a clear route for long-term residential and commercial value.{% endif %}
+          {% elif page.slug == "contact" %}
+            {% if LANGUAGE_CODE == "ar" %}تواصل مع فريق HIG لمعرفة أحدث تفاصيل المشروعات، المساحات، وأنظمة السداد.{% else %}Contact HIG to explore the latest project details, available spaces, and payment plans.{% endif %}
+          {% elif page.slug == "news" %}
+            {% if LANGUAGE_CODE == "ar" %}مقالات ورؤى عن HIG Development، غرب القاهرة، براح، والمشروعات التجارية.{% else %}Articles and insights about HIG Development, West Cairo, BARAH, and commercial destinations.{% endif %}
+          {% else %}
+            WE KNOW THE ROUTE.
+          {% endif %}
+        </p>
+      </div>
+    </div>
+  </section>
+  {% include_block page.body %}
+{% endblock %}

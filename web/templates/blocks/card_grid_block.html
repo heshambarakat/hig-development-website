@@ -1,0 +1,29 @@
+{% if value.show_section %}
+<section class="mx-auto max-w-7xl px-5 py-16">
+  <h2 class="text-3xl font-semibold">{% if LANGUAGE_CODE == "ar" %}{{ value.title_ar }}{% else %}{{ value.title_en }}{% endif %}</h2>
+  <div class="mt-8 grid gap-4 md:grid-cols-3">
+    {% if value.facilities %}
+      {% for item in value.facilities %}
+        <div class="reveal rounded-md border border-black/10 bg-white p-6">
+          <h3 class="text-lg font-semibold">{% if LANGUAGE_CODE == "ar" %}{{ item.title_ar }}{% else %}{{ item.title_en }}{% endif %}</h3>
+          <p class="mt-3 text-sm text-black/60">{% if LANGUAGE_CODE == "ar" %}{{ item.description_ar }}{% else %}{{ item.description_en }}{% endif %}</p>
+        </div>
+      {% endfor %}
+    {% elif value.unit_types %}
+      {% for item in value.unit_types %}
+        <div class="reveal rounded-md border border-black/10 bg-white p-6">
+          <h3 class="text-lg font-semibold">{% if LANGUAGE_CODE == "ar" %}{{ item.title_ar }}{% else %}{{ item.title_en }}{% endif %}</h3>
+          <p class="mt-3 text-sm text-black/60">{% if LANGUAGE_CODE == "ar" %}{{ item.description_ar }}{% else %}{{ item.description_en }}{% endif %}</p>
+        </div>
+      {% endfor %}
+    {% elif value.plans %}
+      {% for item in value.plans %}
+        <div class="reveal rounded-md border border-black/10 bg-white p-6">
+          <h3 class="text-lg font-semibold">{% if LANGUAGE_CODE == "ar" %}{{ item.title_ar }}{% else %}{{ item.title_en }}{% endif %}</h3>
+          <p class="mt-3 text-sm text-black/60">{% if LANGUAGE_CODE == "ar" %}{{ item.description_ar }}{% else %}{{ item.description_en }}{% endif %}</p>
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</section>
+{% endif %}

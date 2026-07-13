@@ -1,0 +1,49 @@
+{% load wagtailimages_tags %}
+{% if value.show_section %}
+<section {% if value.section_anchor_id %}id="{{ value.section_anchor_id }}"{% endif %} class="board-members-section my-12 overflow-hidden px-5 py-20 text-white md:my-20 md:py-24">
+  <div class="mx-auto max-w-7xl">
+    <div class="reveal mx-auto max-w-3xl text-center">
+      <p class="text-xs uppercase tracking-[0.36em] text-hig-gold">HIG Leadership</p>
+      <h2 class="mt-4 text-4xl font-semibold md:text-6xl">
+        {% if LANGUAGE_CODE == "ar" %}{{ value.title_ar }}{% else %}{{ value.title_en }}{% endif %}
+      </h2>
+      {% if value.subtitle_ar or value.subtitle_en %}
+        <p class="mx-auto mt-5 max-w-2xl text-base leading-8 text-white/68 md:text-lg">
+          {% if LANGUAGE_CODE == "ar" %}{{ value.subtitle_ar }}{% else %}{{ value.subtitle_en }}{% endif %}
+        </p>
+      {% endif %}
+    </div>
+
+    <div class="board-stage mt-14" dir="ltr">
+      {% for member in value.members %}
+        <article class="board-card reveal group">
+          <div class="board-card-image" aria-hidden="true">
+            {% if member.image %}
+              {% image member.image fill-900x1120 class="h-full w-full object-cover object-center transition duration-700 group-hover:scale-105" %}
+            {% else %}
+              <div class="flex h-full min-h-[24rem] w-full items-center justify-center bg-gradient-to-br from-hig-ink via-black to-hig-blue/35 text-5xl font-semibold tracking-[0.2em] text-white/85">
+                HIG
+              </div>
+            {% endif %}
+          </div>
+          <div class="board-card-copy" dir="{% if LANGUAGE_CODE == 'ar' %}rtl{% else %}ltr{% endif %}">
+            <div>
+              <div>
+                <p class="text-xs font-semibold uppercase tracking-[0.22em] text-hig-gold">
+                  {% if LANGUAGE_CODE == "ar" %}{{ member.title_ar }}{% else %}{{ member.title_en }}{% endif %}
+                </p>
+                <h3 class="mt-2 text-2xl font-semibold md:text-3xl">
+                  {% if LANGUAGE_CODE == "ar" %}{{ member.name_ar }}{% else %}{{ member.name_en }}{% endif %}
+                </h3>
+              </div>
+            </div>
+            <p class="mt-5 text-sm leading-7 text-white/72">
+              {% if LANGUAGE_CODE == "ar" %}{{ member.bio_ar }}{% else %}{{ member.bio_en }}{% endif %}
+            </p>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}

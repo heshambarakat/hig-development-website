@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load i18n wagtailcore_tags %}
+
+{% block content %}
+  <section class="mx-auto max-w-3xl px-5 py-24 text-center">
+    <p class="text-sm uppercase tracking-[0.25em] text-hig-gold">{% trans "Thank you" %}</p>
+    <h1 class="mt-4 text-4xl font-semibold">{{ page.title }}</h1>
+    <div class="mt-8">{% include_block page.body %}</div>
+  </section>
+{% endblock %}

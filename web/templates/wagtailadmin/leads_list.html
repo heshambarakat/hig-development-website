@@ -1,0 +1,46 @@
+{% extends "wagtailadmin/base.html" %}
+
+{% block titletag %}Leads{% endblock %}
+
+{% block content %}
+  {% include "wagtailadmin/shared/header.html" with title="Leads" icon="form" %}
+  <div class="nice-padding">
+    <style>
+      .lead-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;margin:0 0 2rem}.lead-kpi{border:1px solid #d9d9d9;border-radius:6px;background:#fff;padding:1.25rem}.lead-kpi strong{display:block;font-size:2rem;color:#007d7e}.lead-kpi span{color:#5c5c5c}.lead-status{display:inline-block;border-radius:999px;padding:.25rem .65rem;background:#e8f5f2;color:#006b6b;font-weight:700}@media(max-width:800px){.lead-kpis{grid-template-columns:repeat(2,1fr)}}
+    </style>
+    <div class="lead-kpis">
+      <div class="lead-kpi"><strong>{{ total_leads }}</strong><span>إجمالي العملاء</span></div>
+      <div class="lead-kpi"><strong>{{ new_leads }}</strong><span>عملاء جدد</span></div>
+      <div class="lead-kpi"><strong>{{ tracked_leads }}</strong><span>رحلات مرتبطة</span></div>
+      <div class="lead-kpi"><strong>{{ synced_leads }}</strong><span>تمت مزامنتهم</span></div>
+    </div>
+    <table class="listing">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Project</th>
+          <th>Source page</th>
+          <th>UTM campaign</th>
+          <th>Date/time</th>
+          <th>Sheet</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for lead in leads %}
+          <tr>
+            <td><a href="/higadmin/leads/{{ lead.pk }}/">{{ lead.name }}</a></td>
+            <td>{{ lead.phone }}</td>
+            <td>{{ lead.project }}</td>
+            <td>{{ lead.page_url }}</td>
+            <td>{{ lead.utm_campaign }}</td>
+            <td>{{ lead.created_at }}</td>
+            <td><span class="lead-status">{{ lead.google_sheet_status }}</span></td>
+          </tr>
+        {% empty %}
+          <tr><td colspan="7">No leads yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

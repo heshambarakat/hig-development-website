@@ -1,0 +1,52 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+
+{% block titletag %}Tracking Summary{% endblock %}
+
+{% block content %}
+  {% include "wagtailadmin/shared/header.html" with title="Tracking Events Summary" icon="view" %}
+  <div class="nice-padding">
+    <h2>Event totals</h2>
+    <table class="listing">
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for event in events %}
+          <tr>
+            <td>{{ event.event_type }}</td>
+            <td>{{ event.total }}</td>
+          </tr>
+        {% empty %}
+          <tr><td colspan="2">No events yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <h2>Recent events</h2>
+    <table class="listing">
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Page</th>
+          <th>Project</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for event in recent_events %}
+          <tr>
+            <td>{{ event.event_type }}</td>
+            <td>{{ event.page_url }}</td>
+            <td>{{ event.project_name }}</td>
+            <td>{{ event.occurred_at }}</td>
+          </tr>
+        {% empty %}
+          <tr><td colspan="4">No tracking events yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

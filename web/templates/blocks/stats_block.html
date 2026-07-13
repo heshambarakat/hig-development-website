@@ -1,0 +1,13 @@
+{% if value.show_section %}
+<section class="mx-auto max-w-7xl px-5 py-16">
+  <h2 class="text-3xl font-semibold">{% if LANGUAGE_CODE == "ar" %}{{ value.title_ar }}{% else %}{{ value.title_en }}{% endif %}</h2>
+  <div class="mt-8 grid gap-4 md:grid-cols-4">
+    {% for stat in value.stats %}
+      <div class="reveal rounded-md border border-black/10 bg-white p-6">
+        <div class="stat-number text-4xl font-semibold text-hig-gold">{{ stat.value }}</div>
+        <div class="mt-2 text-sm text-black/60">{% if LANGUAGE_CODE == "ar" %}{{ stat.label_ar }}{% else %}{{ stat.label_en }}{% endif %}</div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}

@@ -1,0 +1,11 @@
+{% load wagtailimages_tags %}
+{% if value.show_section %}
+<section class="mx-auto grid max-w-7xl gap-10 px-5 py-16 md:grid-cols-2 md:items-center">
+  <div class="reveal">
+    <h2 class="text-3xl font-semibold md:text-5xl">{% if LANGUAGE_CODE == "ar" %}{{ value.title_ar }}{% else %}{{ value.title_en }}{% endif %}</h2>
+    <p class="mt-6 text-black/70">{% if LANGUAGE_CODE == "ar" %}{{ value.address_ar }}{% else %}{{ value.address_en }}{% endif %}</p>
+    {% if value.show_button and value.button_link %}<a class="mt-6 inline-flex rounded-full bg-hig-ink px-5 py-3 text-sm text-white hover:bg-hig-gold" href="{{ value.button_link }}">{% if LANGUAGE_CODE == "ar" %}{{ value.button_text_ar }}{% else %}{{ value.button_text_en }}{% endif %}</a>{% endif %}
+  </div>
+  {% if value.image %}<div class="reveal overflow-hidden rounded-md">{% image value.image fill-900x680 class="h-full w-full object-cover transition duration-700 hover:scale-105" %}</div>{% endif %}
+</section>
+{% endif %}

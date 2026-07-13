@@ -1,0 +1,11 @@
+{% if value.show_section %}
+<section class="bg-hig-ink px-5 py-16 text-white">
+  <div class="mx-auto flex max-w-7xl flex-col justify-between gap-6 md:flex-row md:items-center">
+    <div>
+      <h2 class="text-3xl font-semibold">{% if LANGUAGE_CODE == "ar" %}{{ value.title_ar }}{% else %}{{ value.title_en }}{% endif %}</h2>
+      <p class="mt-3 text-white/65">{% if LANGUAGE_CODE == "ar" %}{{ value.text_ar }}{% else %}{{ value.text_en }}{% endif %}</p>
+    </div>
+    {% if value.show_button and value.button_link %}<a class="inline-flex rounded-full bg-hig-gold px-6 py-3 text-sm text-white hover:bg-white hover:text-hig-blue" href="{{ value.button_link }}">{% if LANGUAGE_CODE == "ar" %}{{ value.button_text_ar }}{% else %}{{ value.button_text_en }}{% endif %}</a>{% endif %}
+  </div>
+</section>
+{% endif %}

@@ -1,0 +1,26 @@
+{% load i18n %}
+{% if value.show_section %}
+<section id="lead" class="mx-auto max-w-4xl px-5 py-16">
+  <div class="rounded-md bg-white p-6 shadow-sm">
+    <h2 class="text-3xl font-semibold">{% if LANGUAGE_CODE == "ar" %}{{ value.title_ar }}{% else %}{{ value.title_en }}{% endif %}</h2>
+    <form class="mt-8 grid gap-4 md:grid-cols-2" action="{% url 'submit_lead' %}" method="post" data-lead-form>
+      {% csrf_token %}
+      <input type="hidden" name="project" value="{{ value.project_name }}">
+      <input type="hidden" name="page_url" value="{{ request.build_absolute_uri }}">
+      <input type="hidden" name="language" value="{{ LANGUAGE_CODE }}">
+      <input type="hidden" name="utm_source">
+      <input type="hidden" name="utm_medium">
+      <input type="hidden" name="utm_campaign">
+      <input type="hidden" name="utm_content">
+      <input type="hidden" name="utm_term">
+      <input type="hidden" name="event_id">
+      <label class="grid gap-2 text-sm">{% trans "Name" %}<input class="rounded-md border border-black/15 px-4 py-3" name="name" required></label>
+      <label class="grid gap-2 text-sm">{% trans "Phone" %}<input class="rounded-md border border-black/15 px-4 py-3" name="phone" required></label>
+      <label class="grid gap-2 text-sm">{% trans "Email" %}<input class="rounded-md border border-black/15 px-4 py-3" name="email" type="email"></label>
+      <label class="grid gap-2 text-sm">{% trans "Budget" %}<input class="rounded-md border border-black/15 px-4 py-3" name="budget"></label>
+      <label class="grid gap-2 text-sm md:col-span-2">{% trans "Message" %}<textarea class="min-h-28 rounded-md border border-black/15 px-4 py-3" name="message"></textarea></label>
+      <button class="rounded-full bg-hig-ink px-6 py-3 text-sm font-medium text-white hover:bg-hig-gold md:col-span-2" type="submit">{% if LANGUAGE_CODE == "ar" %}{{ value.button_text_ar }}{% else %}{{ value.button_text_en }}{% endif %}</button>
+    </form>
+  </div>
+</section>
+{% endif %}

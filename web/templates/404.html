@@ -1,0 +1,42 @@
+{% load static %}
+<!doctype html>
+<html lang="{{ language }}" dir="{% if language == 'ar' %}rtl{% else %}ltr{% endif %}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="refresh" content="4;url={{ home_url }}">
+  <title>{% if language == "ar" %}الصفحة غير موجودة{% else %}Page Not Found{% endif %} | HIG Development</title>
+  <link rel="icon" href="{% static 'img/logos/hig-primary.png' %}">
+  <link rel="stylesheet" href="{% static 'css/site.css' %}">
+</head>
+<body class="bg-hig-ink text-white antialiased">
+  <main class="relative min-h-screen overflow-hidden">
+    <video class="absolute inset-0 h-full w-full object-cover opacity-35" autoplay muted loop playsinline preload="metadata">
+      <source src="{% static 'videos/hig/hig-hero.mp4' %}" type="video/mp4">
+    </video>
+    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30"></div>
+    <section class="relative mx-auto flex min-h-screen max-w-5xl flex-col items-center justify-center px-5 text-center">
+      <img class="mb-8 h-16 w-auto object-contain" src="{% static 'img/logos/hig-white.png' %}" alt="HIG Development">
+      <p class="text-sm uppercase tracking-[0.35em] text-hig-gold">404</p>
+      <h1 class="mt-5 text-4xl font-semibold md:text-6xl">
+        {% if language == "ar" %}الصفحة دي مش موجودة{% else %}This page is not available{% endif %}
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg text-white/70">
+        {% if language == "ar" %}
+          الرابط اللي فتحته غير صحيح أو الصفحة اتنقلت. هنرجعك تلقائيا للرئيسية خلال ثواني.
+        {% else %}
+          The link may be incorrect or the page has moved. We will redirect you to the homepage in a few seconds.
+        {% endif %}
+      </p>
+      <a class="mt-8 inline-flex rounded-full bg-hig-blue px-7 py-3 text-sm font-semibold text-white hover:bg-white hover:text-hig-blue" href="{{ home_url }}">
+        {% if language == "ar" %}العودة للرئيسية{% else %}Back Home{% endif %}
+      </a>
+    </section>
+  </main>
+  <script>
+    window.setTimeout(function () {
+      window.location.href = "{{ home_url }}";
+    }, 4000);
+  </script>
+</body>
+</html>

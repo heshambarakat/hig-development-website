@@ -1,0 +1,32 @@
+# Local secrets and runtime state
+web/.env
+web/.venv/
+web/venv/
+web/env/
+web/db.sqlite3
+web/media/
+web/staticfiles/
+web/node_modules/
+
+# Python / test output
+**/__pycache__/
+**/*.py[cod]
+**/.pytest_cache/
+**/.coverage
+**/htmlcov/
+**/*.log
+
+# Local source archives are retained on this workstation, not deployed.
+assets/
+docs/
+gemini-*
+shareid-context.txt
+
+# Original 200 MB master; the optimized web encode is tracked instead.
+web/static/videos/barah/final-x.mp4
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

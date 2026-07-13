@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load i18n static wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+  <script>
+    document.body.dataset.pageType = "project";
+    document.body.dataset.projectName = "{{ page.project_name_ar|default:page.title|escapejs }}";
+  </script>
+  <section class="relative min-h-screen overflow-hidden bg-hig-ink text-white">
+    {% if page.hero_video_url %}
+      <video class="hero-media js-audio-video absolute inset-0 h-full w-full object-cover opacity-70" autoplay muted loop playsinline preload="metadata" {% if page.hero_image %}{% image page.hero_image fill-1400x820 as poster_image %}poster="{{ poster_image.url }}"{% endif %}>
+        <source src="{{ page.hero_video_url }}" type="video/mp4">
+      </video>
+      <button type="button" class="video-sound-toggle" data-video-sound-toggle aria-label="Toggle video sound">
+        <svg class="sound-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Zm12.6 3 2.2-2.2-1.4-1.4-2.2 2.2L13 8.4l-1.4 1.4 2.2 2.2-2.2 2.2 1.4 1.4 2.2-2.2 2.2 2.2 1.4-1.4L16.6 12Z"/></svg>
+        <svg class="sound-on hidden" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Zm12.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4Zm-2.5-9v2.1a7 7 0 0 1 0 13.8V21a9 9 0 0 0 0-18Z"/></svg>
+      </button>
+    {% elif page.hero_image %}
+      {% image page.hero_image fill-1800x1000 class="hero-media absolute inset-0 h-full w-full object-cover opacity-60" loading="eager" %}
+    {% endif %}
+    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/45 to-black/10"></div>
+    <div class="relative mx-auto flex min-h-screen max-w-7xl items-end px-5 pb-20 pt-40">
+      <div class="max-w-3xl reveal">
+        {% if page.logo %}
+          {% image page.logo width-320 class="mb-8 max-h-24 w-auto object-contain" %}
+        {% elif page.slug == "barah-residence" %}
+          <img class="mb-8 max-h-24 w-auto object-contain" src="{% static 'img/logos/barah-residence.png' %}" alt="BARAH Residence">
+        {% elif page.slug == "caza-mall" %}
+          <img class="mb-8 max-h-24 w-auto object-contain" src="{% static 'img/logos/caza-mall.png' %}" alt="Caza Mall">
+        {% elif page.slug == "il-centro-mall" %}
+          <img class="mb-8 max-h-24 w-auto object-contain" src="{% static 'img/logos/il-centro-mall.png' %}" alt="IL Centro Mall">
+        {% elif page.slug == "il-parco-mall" %}
+          <img class="mb-8 max-h-24 w-auto object-contain" src="{% static 'img/logos/il-parco-mall.png' %}" alt="IL Parco Mall">
+        {% endif %}
+        <p class="text-sm uppercase tracking-[0.28em] text-hig-gold">HIG Development</p>
+        <h1 class="mt-4 text-5xl font-semibold md:text-7xl">{{ page.project_name_ar|default:page.title }}</h1>
+        {% if page.project_address %}<p class="mt-5 max-w-xl text-white/75">{{ page.project_address }}</p>{% endif %}
+      </div>
+    </div>
+  </section>
+  {% include_block page.body %}
+  {% if page.show_map %}
+    <section class="mx-auto max-w-7xl px-5 py-16">
+      <div class="mb-6 flex items-end justify-between gap-4">
+        <div>
+          <p class="text-sm uppercase tracking-[0.25em] text-hig-gold">{% trans "Location" %}</p>
+          <h2 class="mt-2 text-3xl font-semibold">{{ page.map_marker_title|default:page.title }}</h2>
+        </div>
+        {% if page.directions_url %}<a class="rounded-full bg-hig-ink px-5 py-3 text-sm text-white hover:bg-hig-gold" href="{{ page.directions_url }}" target="_blank" rel="noopener">{% trans "Get Directions" %}</a>{% endif %}
+      </div>
+      {% if page.latitude and page.longitude %}
+        <div class="project-map reveal h-[420px] rounded-md" data-lat="{{ page.latitude }}" data-lng="{{ page.longitude }}" data-zoom="{{ page.map_zoom }}" data-title="{{ page.map_marker_title }}" data-description="{{ page.map_marker_description }}"></div>
+      {% else %}
+        <div class="reveal rounded-md bg-white p-6">
+          <p class="text-black/65">{{ page.project_address }}</p>
+          {% if page.directions_url %}<a class="mt-5 inline-flex rounded-full bg-hig-ink px-5 py-3 text-sm text-white hover:bg-hig-gold" href="{{ page.directions_url }}" target="_blank" rel="noopener">{% trans "Get Directions" %}</a>{% endif %}
+        </div>
+      {% endif %}
+      {% if page.nearby_landmarks %}
+        <div class="mt-5 grid gap-3 md:grid-cols-4">
+          {% for place in page.nearby_landmarks %}
+            <div class="rounded-md bg-white p-4 text-sm">
+              <strong>{{ place.name }}</strong>
+              <span class="block text-black/55">{{ place.distance }}</span>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </section>
+  {% endif %}
+{% endblock %}

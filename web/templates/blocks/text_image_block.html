@@ -1,0 +1,22 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% if value.show_section %}
+<section class="mx-auto grid max-w-7xl gap-10 px-5 py-16 md:grid-cols-2 md:items-center">
+  <div class="reveal">
+    <h2 class="text-3xl font-semibold md:text-5xl">{% if LANGUAGE_CODE == "ar" %}{{ value.title_ar }}{% else %}{{ value.title_en }}{% endif %}</h2>
+    <div class="mt-6 text-black/70">{% if LANGUAGE_CODE == "ar" %}{{ value.text_ar|richtext }}{% else %}{{ value.text_en|richtext }}{% endif %}</div>
+    {% if value.show_button and value.button_link %}<a class="mt-6 inline-flex rounded-full bg-hig-ink px-5 py-3 text-sm text-white hover:bg-hig-gold" href="{{ value.button_link }}" {% if value.button_new_tab %}target="_blank" rel="noopener"{% endif %}>{% if LANGUAGE_CODE == "ar" %}{{ value.button_text_ar }}{% else %}{{ value.button_text_en }}{% endif %}</a>{% endif %}
+  </div>
+  {% if value.image %}
+    <div class="reveal relative pb-10 {% if LANGUAGE_CODE == 'ar' %}pl-8{% else %}pr-8{% endif %}">
+      <div class="overflow-hidden rounded-md bg-hig-ink p-2 shadow-xl">
+        {% image value.image fill-900x680 class="aspect-[4/3] w-full rounded-md object-cover transition duration-700 hover:scale-105" %}
+      </div>
+      {% if value.secondary_image %}
+        <div class="floating-secondary-image absolute bottom-0 {% if LANGUAGE_CODE == 'ar' %}left-0{% else %}right-0{% endif %} w-36 overflow-hidden rounded-md border-4 border-white bg-white shadow-xl md:w-56">
+          {% image value.secondary_image fill-560x420 class="aspect-[4/3] w-full object-cover" %}
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+</section>
+{% endif %}

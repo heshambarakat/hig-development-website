@@ -1,0 +1,18 @@
+{% load i18n %}
+{% if value.show_section and value.latitude and value.longitude %}
+<section class="mx-auto max-w-7xl px-5 py-16">
+  <h2 class="text-3xl font-semibold">{% if LANGUAGE_CODE == "ar" %}{{ value.title_ar }}{% else %}{{ value.title_en }}{% endif %}</h2>
+  <div class="project-map reveal mt-8 h-[420px] rounded-md" data-lat="{{ value.latitude }}" data-lng="{{ value.longitude }}" data-zoom="{{ value.zoom_level }}" data-title="{% if LANGUAGE_CODE == 'ar' %}{{ value.marker_title_ar }}{% else %}{{ value.marker_title_en }}{% endif %}" data-description="{% if LANGUAGE_CODE == 'ar' %}{{ value.marker_description_ar }}{% else %}{{ value.marker_description_en }}{% endif %}"></div>
+  {% if value.nearby_places %}
+    <div class="mt-5 grid gap-3 md:grid-cols-4">
+      {% for place in value.nearby_places %}
+        <div class="rounded-md bg-white p-4 text-sm">
+          <strong>{% if LANGUAGE_CODE == "ar" %}{{ place.name_ar }}{% else %}{{ place.name_en }}{% endif %}</strong>
+          <span class="block text-black/55">{% if LANGUAGE_CODE == "ar" %}{{ place.distance_ar }}{% else %}{{ place.distance_en }}{% endif %}</span>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+  {% if value.directions_url %}<a class="mt-5 inline-flex rounded-full bg-hig-ink px-5 py-3 text-sm text-white hover:bg-hig-gold" href="{{ value.directions_url }}" target="_blank" rel="noopener">{% trans "Get Directions" %}</a>{% endif %}
+</section>
+{% endif %}

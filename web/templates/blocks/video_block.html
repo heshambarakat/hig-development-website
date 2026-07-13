@@ -1,0 +1,6 @@
+{% if value.show_section %}
+<section class="mx-auto max-w-5xl px-5 py-16">
+  <h2 class="text-3xl font-semibold">{% if LANGUAGE_CODE == "ar" %}{{ value.title_ar }}{% else %}{{ value.title_en }}{% endif %}</h2>
+  {% if value.video_url %}<video class="mt-8 w-full rounded-md bg-black" controls preload="metadata" src="{{ value.video_url }}"></video>{% endif %}
+</section>
+{% endif %}

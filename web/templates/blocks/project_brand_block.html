@@ -1,0 +1,12 @@
+{% load wagtailimages_tags %}
+{% if value.show_section %}
+<section class="mx-auto grid max-w-7xl gap-8 px-5 py-16 md:grid-cols-[0.7fr_1.3fr] md:items-center">
+  <div class="reveal rounded-md bg-white p-8">
+    {% if value.logo %}{% image value.logo width-320 class="max-h-28 w-auto" %}{% endif %}
+  </div>
+  <div class="reveal">
+    <h2 class="text-4xl font-semibold">{% if LANGUAGE_CODE == "ar" %}{{ value.project_name_ar }}{% else %}{{ value.project_name_en }}{% endif %}</h2>
+    <p class="mt-4 text-black/65">{% if LANGUAGE_CODE == "ar" %}{{ value.description_ar }}{% else %}{{ value.description_en }}{% endif %}</p>
+  </div>
+</section>
+{% endif %}

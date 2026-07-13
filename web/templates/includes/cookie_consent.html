@@ -1,0 +1,7 @@
+<div id="cookie-consent" class="fixed inset-x-4 bottom-20 z-40 hidden rounded-md bg-hig-ink p-4 text-sm text-white shadow-xl md:left-auto md:right-6 md:max-w-sm">
+  <p>{% if LANGUAGE_CODE == "ar" %}نستخدم أدوات التسويق الاختيارية فقط بعد موافقتك.{% else %}We use optional marketing pixels only after your consent.{% endif %}</p>
+  <div class="mt-3 flex gap-2">
+    <button type="button" data-consent-accept class="rounded-full bg-hig-blue px-4 py-2 text-white">{% if LANGUAGE_CODE == "ar" %}سماح{% else %}Allow{% endif %}</button>
+    <button type="button" data-consent-decline class="rounded-full border border-white/25 px-4 py-2">{% if LANGUAGE_CODE == "ar" %}رفض{% else %}Decline{% endif %}</button>
+  </div>
+</div>

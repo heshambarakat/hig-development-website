@@ -41,6 +41,35 @@
   window.addEventListener("scroll", setHeader, { passive: true });
   setHeader();
 
+  const lazyVideos = document.querySelectorAll("[data-lazy-video]");
+  const loadVideo = (video) => {
+    if (video.dataset.loaded === "true") return;
+    video.querySelectorAll("source[data-src]").forEach((source) => {
+      source.src = source.dataset.src;
+      source.removeAttribute("data-src");
+    });
+    video.dataset.loaded = "true";
+    video.load();
+    const playPromise = video.play();
+    if (playPromise) playPromise.catch(() => {});
+  };
+
+  if ("IntersectionObserver" in window) {
+    const videoObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          loadVideo(entry.target);
+          videoObserver.unobserve(entry.target);
+        });
+      },
+      { rootMargin: "400px 0px", threshold: 0.01 }
+    );
+    lazyVideos.forEach((video) => videoObserver.observe(video));
+  } else {
+    lazyVideos.forEach(loadVideo);
+  }
+
   const revealItems = document.querySelectorAll(
     ".nw-section-label, .nw-who-grid, .nw-stats, .nw-project-copy, .nw-project-lanes article > div, .nw-grid-head, .nw-card-grid article, .nw-board-grid article, .nw-insight-list a, .nw-contact > *"
   );

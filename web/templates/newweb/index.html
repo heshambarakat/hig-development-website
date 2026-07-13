@@ -81,8 +81,8 @@
 
     <main>
       {% if not site_controls or site_controls.show_hero %}<section class="nw-hero" id="top">
-        <video class="nw-hero-video" autoplay muted loop playsinline poster="{% static 'img/newweb/barah-night.jpg' %}">
-          <source src="{% if site_controls.hero_video %}{{ site_controls.hero_video.url }}{% else %}{% static 'videos/hig/hig-hero.mp4' %}{% endif %}" type="video/mp4">
+        <video class="nw-hero-video" autoplay muted loop playsinline preload="metadata" poster="{% static 'img/newweb/barah-night-web.webp' %}">
+          <source src="{% if site_controls.hero_video %}{{ site_controls.hero_video.url }}{% else %}{% static 'videos/hig/hig-hero-web.mp4' %}{% endif %}" type="video/mp4">
         </video>
         <div class="nw-hero-shade"></div>
         <div class="nw-hero-content">
@@ -118,8 +118,8 @@
       {% if not site_controls or site_controls.show_featured_project %}
       <section class="nw-featured-project" id="projects">
         <div class="nw-project-media">
-          <video autoplay muted loop playsinline poster="{% static 'img/newweb/barah-hero.jpg' %}">
-            <source src="{% static 'videos/barah/final-x-web.mp4' %}" type="video/mp4">
+          <video autoplay muted loop playsinline preload="none" data-lazy-video poster="{% static 'img/newweb/barah-hero-web.webp' %}">
+            <source data-src="{% static 'videos/barah/final-x-lite.mp4' %}" type="video/mp4">
           </video>
         </div>
         <div class="nw-project-copy">
@@ -135,8 +135,8 @@
       {% if not site_controls or site_controls.show_project_lanes %}
       <section class="nw-project-lanes">
         <article class="nw-project-lane-video">
-          <video class="nw-lane-video" autoplay muted loop playsinline poster="{% static 'img/newweb/caza-cover.jpg' %}">
-            <source src="{% static 'videos/caza/caza-hero.mp4' %}" type="video/mp4">
+          <video class="nw-lane-video" autoplay muted loop playsinline preload="none" data-lazy-video poster="{% static 'img/newweb/caza-cover-web.webp' %}">
+            <source data-src="{% static 'videos/caza/caza-hero-web.mp4' %}" type="video/mp4">
           </video>
           <div>
             <span>{{ t.commercial }}</span>
@@ -145,7 +145,7 @@
             <a href="/{{ lang_code }}/projects/caza-mall/">{{ t.learn_more }}</a>
           </div>
         </article>
-        <article style="--image: url('{% static 'img/newweb/il-centro.jpg' %}')">
+        <article style="--image: url('{% static 'img/newweb/il-centro-web.webp' %}')">
           <div>
             <span>{{ t.commercial }}</span>
             <h2>IL Centro Mall</h2>
@@ -153,7 +153,7 @@
             <a href="/{{ lang_code }}/projects/il-centro-mall/">{{ t.learn_more }}</a>
           </div>
         </article>
-        <article style="--image: url('{% static 'img/newweb/il-parco.jpg' %}')">
+        <article style="--image: url('{% static 'img/newweb/il-parco-web.webp' %}')">
           <div>
             <span>{{ t.commercial }}</span>
             <h2>IL Parco Mall</h2>
@@ -177,10 +177,10 @@
           {% endfor %}
         </div>
         <div class="nw-card-grid">
-          <article><img src="{% static 'img/newweb/barah-night.jpg' %}" alt="BARAH Residence"><div class="nw-card-title"><h3>BARAH Residence</h3><img src="{% static 'img/logos/barah-residence.png' %}" alt="BARAH Residence logo"></div><span>{{ t.residential }}</span></article>
-          <article><img src="{% static 'img/newweb/caza-mall.png' %}" alt="Caza Mall"><div class="nw-card-title"><h3>Caza Mall</h3><img src="{% static 'img/logos/caza-mall.png' %}" alt="Caza Mall logo"></div><span>{{ t.commercial }}</span></article>
-          <article><img src="{% static 'img/newweb/il-centro.jpg' %}" alt="IL Centro Mall"><div class="nw-card-title"><h3>IL Centro Mall</h3><img src="{% static 'img/logos/il-centro-mall.png' %}" alt="IL Centro Mall logo"></div><span>{{ t.commercial }}</span></article>
-          <article><img src="{% static 'img/newweb/il-parco.jpg' %}" alt="IL Parco Mall"><div class="nw-card-title"><h3>IL Parco Mall</h3><img src="{% static 'img/logos/il-parco-mall.png' %}" alt="IL Parco Mall logo"></div><span>{{ t.commercial }}</span></article>
+          <article><img src="{% static 'img/newweb/barah-night-web.webp' %}" loading="lazy" decoding="async" alt="BARAH Residence"><div class="nw-card-title"><h3>BARAH Residence</h3><img src="{% static 'img/logos/barah-residence.png' %}" loading="lazy" decoding="async" alt="BARAH Residence logo"></div><span>{{ t.residential }}</span></article>
+          <article><img src="{% static 'img/newweb/caza-mall-web.webp' %}" loading="lazy" decoding="async" alt="Caza Mall"><div class="nw-card-title"><h3>Caza Mall</h3><img src="{% static 'img/logos/caza-mall.png' %}" loading="lazy" decoding="async" alt="Caza Mall logo"></div><span>{{ t.commercial }}</span></article>
+          <article><img src="{% static 'img/newweb/il-centro-web.webp' %}" loading="lazy" decoding="async" alt="IL Centro Mall"><div class="nw-card-title"><h3>IL Centro Mall</h3><img src="{% static 'img/logos/il-centro-mall.png' %}" loading="lazy" decoding="async" alt="IL Centro Mall logo"></div><span>{{ t.commercial }}</span></article>
+          <article><img src="{% static 'img/newweb/il-parco-web.webp' %}" loading="lazy" decoding="async" alt="IL Parco Mall"><div class="nw-card-title"><h3>IL Parco Mall</h3><img src="{% static 'img/logos/il-parco-mall.png' %}" loading="lazy" decoding="async" alt="IL Parco Mall logo"></div><span>{{ t.commercial }}</span></article>
         </div>
       </section>
       {% endif %}
@@ -193,9 +193,9 @@
           <p>{{ t.team_text }}</p>
         </div>
         <div class="nw-board-grid">
-          <article><img src="{% static 'img/newweb/eng-ahmed-ashour.png' %}" alt="Eng. Ahmed Ashour"><h3>{% if lang_code == "ar" %}م. أحمد عاشور{% else %}Eng. Ahmed Ashour{% endif %}</h3><p>{{ t.vice }}</p></article>
-          <article><img src="{% static 'img/newweb/eng-alaa-el-hosary.png' %}" alt="Eng. Alaa El Hosary"><h3>{% if lang_code == "ar" %}م. علاء الحصري{% else %}Eng. Alaa El Hosary{% endif %}</h3><p>{{ t.chairman }}</p></article>
-          <article><img src="{% static 'img/newweb/eng-islam-senousi.png' %}" alt="Eng. Islam Senousi"><h3>{% if lang_code == "ar" %}م. إسلام سنوسي{% else %}Eng. Islam Senousi{% endif %}</h3><p>{{ t.member }}</p></article>
+          <article><img src="{% static 'img/newweb/eng-ahmed-ashour-web.webp' %}" loading="lazy" decoding="async" alt="Eng. Ahmed Ashour"><h3>{% if lang_code == "ar" %}م. أحمد عاشور{% else %}Eng. Ahmed Ashour{% endif %}</h3><p>{{ t.vice }}</p></article>
+          <article><img src="{% static 'img/newweb/eng-alaa-el-hosary-web.webp' %}" loading="lazy" decoding="async" alt="Eng. Alaa El Hosary"><h3>{% if lang_code == "ar" %}م. علاء الحصري{% else %}Eng. Alaa El Hosary{% endif %}</h3><p>{{ t.chairman }}</p></article>
+          <article><img src="{% static 'img/newweb/eng-islam-senousi-web.webp' %}" loading="lazy" decoding="async" alt="Eng. Islam Senousi"><h3>{% if lang_code == "ar" %}م. إسلام سنوسي{% else %}Eng. Islam Senousi{% endif %}</h3><p>{{ t.member }}</p></article>
         </div>
       </section>
       {% endif %}

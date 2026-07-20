@@ -41,6 +41,61 @@
   window.addEventListener("scroll", setHeader, { passive: true });
   setHeader();
 
+  const recoveryVersion = "20260720";
+  const withRecoveryVersion = (value) => {
+    if (!value) return value;
+    const url = new URL(value, window.location.href);
+    if (url.origin !== window.location.origin) return value;
+    if (!url.pathname.startsWith("/media/") && !url.pathname.startsWith("/static/")) return value;
+    url.searchParams.set("asset_retry", recoveryVersion);
+    return url.href;
+  };
+
+  const recoverImage = (image) => {
+    if (image.dataset.assetRetry === "true") return;
+    const recoveredSrc = withRecoveryVersion(image.currentSrc || image.src);
+    if (!recoveredSrc || recoveredSrc === image.src) return;
+    image.dataset.assetRetry = "true";
+    image.removeAttribute("srcset");
+    image.src = recoveredSrc;
+  };
+
+  document.querySelectorAll("img").forEach((image) => {
+    image.addEventListener("error", () => recoverImage(image), { once: true });
+    if (image.complete && image.naturalWidth === 0) recoverImage(image);
+  });
+
+  document.querySelectorAll("video").forEach((video) => {
+    video.addEventListener(
+      "error",
+      () => {
+        if (video.dataset.assetRetry === "true") return;
+        let changed = false;
+        video.querySelectorAll("source[src]").forEach((source) => {
+          const recoveredSrc = withRecoveryVersion(source.src);
+          if (recoveredSrc && recoveredSrc !== source.src) {
+            source.src = recoveredSrc;
+            changed = true;
+          }
+        });
+        if (video.src) {
+          const recoveredSrc = withRecoveryVersion(video.src);
+          if (recoveredSrc && recoveredSrc !== video.src) {
+            video.src = recoveredSrc;
+            changed = true;
+          }
+        }
+        if (changed) {
+          video.dataset.assetRetry = "true";
+          video.load();
+          const playPromise = video.autoplay ? video.play() : null;
+          if (playPromise) playPromise.catch(() => {});
+        }
+      },
+      { once: true }
+    );
+  });
+
   const lazyVideos = document.querySelectorAll("[data-lazy-video]");
   const loadVideo = (video) => {
     if (video.dataset.loaded === "true") return;

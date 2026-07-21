@@ -1,0 +1,14 @@
+<div class="nw-social-links" aria-label="Social media">
+  {% if controls and controls.facebook_url %}<a href="{{ controls.facebook_url }}" aria-label="HIG Facebook" target="_blank" rel="noopener">{% else %}<span aria-label="HIG Facebook">{% endif %}
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4h-3c-3 0-5 2-5 5v2H6v4h3v7h4v-7h3.2l.8-4h-4V9c0-.6.4-1 1-1Z"/></svg>
+  {% if controls and controls.facebook_url %}</a>{% else %}</span>{% endif %}
+  {% if controls and controls.instagram_url %}<a href="{{ controls.instagram_url }}" aria-label="HIG Instagram" target="_blank" rel="noopener">{% else %}<span aria-label="HIG Instagram">{% endif %}
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm5 3.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Zm0 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Zm5.25-.85a.9.9 0 1 1 0-1.8.9.9 0 0 1 0 1.8Z"/></svg>
+  {% if controls and controls.instagram_url %}</a>{% else %}</span>{% endif %}
+  {% if controls and controls.youtube_url %}<a href="{{ controls.youtube_url }}" aria-label="HIG YouTube" target="_blank" rel="noopener">{% else %}<span aria-label="HIG YouTube">{% endif %}
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 7.2s-.2-1.5-.8-2.1c-.8-.8-1.7-.8-2.1-.9C15.8 4 12 4 12 4s-3.8 0-6.7.2c-.4.1-1.3.1-2.1.9-.6.6-.8 2.1-.8 2.1S2.2 9 2.2 10.8v1.7c0 1.8.2 3.6.2 3.6s.2 1.5.8 2.1c.8.8 1.9.8 2.4.9 1.7.2 6.4.2 6.4.2s3.8 0 6.7-.2c.4-.1 1.3-.1 2.1-.9.6-.6.8-2.1.8-2.1s.2-1.8.2-3.6v-1.7c0-1.8-.2-3.6-.2-3.6ZM10 14.6V8.8l5.2 2.9L10 14.6Z"/></svg>
+  {% if controls and controls.youtube_url %}</a>{% else %}</span>{% endif %}
+  <a href="{% if controls and controls.linkedin_url %}{{ controls.linkedin_url }}{% else %}https://www.linkedin.com/company/higdevelopment/{% endif %}" aria-label="HIG LinkedIn" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.7h4v10.8H3V9.7Zm6.2 0H13v1.5h.1c.5-.9 1.8-1.8 3.6-1.8 3.9 0 4.6 2.6 4.6 5.9v5.2h-4v-4.6c0-1.1 0-2.6-1.6-2.6s-1.8 1.2-1.8 2.5v4.7h-4V9.7Z"/></svg>
+  </a>
+</div>

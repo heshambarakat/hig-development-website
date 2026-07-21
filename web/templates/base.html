@@ -1,4 +1,5 @@
 {% load static i18n wagtailcore_tags wagtailimages_tags hig_tags seo_tags %}
+{% get_site_controls as global_controls %}
 <!doctype html>
 <html lang="{{ LANGUAGE_CODE }}" dir="{{ LANGUAGE_CODE|dir_for_language }}">
 <head>
@@ -20,7 +21,7 @@
     }
   </script>
   <link rel="stylesheet" href="{% static 'css/site.css' %}">
-  <link rel="stylesheet" href="{% static 'css/newweb.css' %}">
+  <link rel="stylesheet" href="{% static 'css/newweb.css' %}?v=20260721-1">
   {% page_structured_data as schema_json %}
   {% if schema_json %}<script type="application/ld+json">{{ schema_json|safe }}</script>{% endif %}
 </head>
@@ -41,6 +42,7 @@
     <div class="mx-auto grid max-w-7xl gap-8 md:grid-cols-3">
       <div>
         <img class="h-14 w-auto object-contain brightness-0 invert" src="{% static 'img/logos/hig-white.png' %}" alt="HIG Development">
+        <div class="mt-4">{% include "includes/social_links.html" with controls=global_controls %}</div>
         <p class="mt-3 max-w-sm text-sm text-white/65">WE KNOW THE ROUTE. {% trans "Premium real estate destinations built with clarity, trust, and long-term value." %}</p>
       </div>
       <div class="text-sm text-white/70">
@@ -50,14 +52,8 @@
       <div class="text-sm text-white/70">
         <div class="font-medium text-white">{% trans "Contact" %}</div>
         <p class="mt-3">Al-Wahat Road, 6th of October City, Giza</p>
-        <p class="mt-1">Hotline: 17556</p>
+        <p class="mt-1">Hotline: {% if global_controls %}{{ global_controls.hotline }}{% else %}17556{% endif %}</p>
         <p class="mt-1">hig-dev.net</p>
-        <div class="mt-4 flex flex-wrap gap-3">
-          <a class="social-icon" href="#" aria-label="HIG Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4h-3c-3.3 0-5 1.9-5 5v2H6v4h3v5h4v-5h3l1-4h-4V9c0-.7.3-1 1-1Z"/></svg></a>
-          <a class="social-icon" href="#" aria-label="HIG Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm5 4.2A3.8 3.8 0 1 1 12 15.8 3.8 3.8 0 0 1 12 8.2Zm0 2A1.8 1.8 0 1 0 12 13.8 1.8 1.8 0 0 0 12 10.2ZM17.8 6.6a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8Z"/></svg></a>
-          <a class="social-icon" href="#" aria-label="HIG LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.8 8.8h3.6V20H4.8V8.8ZM6.6 4a2.1 2.1 0 1 1 0 4.2A2.1 2.1 0 0 1 6.6 4Zm4.1 4.8h3.4v1.5h.1c.5-.9 1.7-1.8 3.4-1.8 3.6 0 4.3 2.4 4.3 5.5v6h-3.6v-5.3c0-1.3 0-2.9-1.8-2.9s-2.1 1.4-2.1 2.8V20h-3.6V8.8Z"/></svg></a>
-          <a class="social-icon" href="#" aria-label="HIG YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 8.2s-.2-1.6-.8-2.3c-.8-.8-1.7-.8-2.1-.9C16.2 4.8 12 4.8 12 4.8s-4.2 0-7.1.2c-.4.1-1.3.1-2.1.9C2.2 6.6 2 8.2 2 8.2S1.8 10.1 1.8 12v1.8c0 1.9.2 3.8.2 3.8s.2 1.6.8 2.3c.8.8 1.9.8 2.4.9 1.8.2 6.8.2 6.8.2s4.2 0 7.1-.2c.4-.1 1.3-.1 2.1-.9.6-.7.8-2.3.8-2.3s.2-1.9.2-3.8V12c0-1.9-.2-3.8-.2-3.8ZM10 15.4V8.8l5.8 3.3L10 15.4Z"/></svg></a>
-        </div>
       </div>
     </div>
   </footer>

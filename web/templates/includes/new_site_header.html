@@ -1,5 +1,6 @@
 {% load static hig_tags %}
 {% language_switch_url as switch_url %}
+{% get_site_controls as global_controls %}
 <header class="nw-header nw-inner-header" data-newweb-header>
   <div class="nw-header-actions">
     <button class="nw-menu-button" type="button" data-newweb-menu aria-controls="new-site-drawer" aria-expanded="false" aria-label="{% if LANGUAGE_CODE == 'ar' %}القائمة{% else %}Menu{% endif %}">
@@ -15,12 +16,14 @@
     <a href="/{{ LANGUAGE_CODE }}/about/">{% if LANGUAGE_CODE == 'ar' %}من نحن{% else %}About{% endif %}</a>
     <a href="/{{ LANGUAGE_CODE }}/contact/">{% if LANGUAGE_CODE == 'ar' %}تواصل{% else %}Contact{% endif %}</a>
   </nav>
-  <a class="nw-hotline" href="tel:17556">Hotline: 17556</a>
-  <div class="nw-socials" aria-label="Social media"></div>
-  <a class="nw-lang-switch" href="{{ switch_url }}">
-    <span>{% if LANGUAGE_CODE == 'ar' %}English{% else %}العربية{% endif %}</span>
-    <span class="nw-flag">{% if LANGUAGE_CODE == 'ar' %}🇺🇸{% else %}🇪🇬{% endif %}</span>
-  </a>
+  <div class="nw-header-meta">
+    <a class="nw-hotline" href="tel:{% if global_controls %}{{ global_controls.hotline }}{% else %}17556{% endif %}" aria-label="{% if LANGUAGE_CODE == 'ar' %}اتصل بالخط الساخن{% else %}Call the hotline{% endif %}">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2c.3-.3.8-.4 1.2-.2 1.3.5 2.7.8 4.1.8.7 0 1.3.6 1.3 1.3V21c0 .7-.6 1.3-1.3 1.3C10.2 22.3 1.7 13.8 1.7 3.3 1.7 2.6 2.3 2 3 2h3.9c.7 0 1.3.6 1.3 1.3 0 1.4.3 2.8.8 4.1.1.4.1.9-.2 1.2l-2.2 2.2Z"/></svg>
+      <span>{% if global_controls %}{{ global_controls.hotline }}{% else %}17556{% endif %}</span>
+    </a>
+    <a class="nw-lang-switch" href="{{ switch_url }}" aria-label="{% if LANGUAGE_CODE == 'ar' %}English{% else %}العربية{% endif %}">{% if LANGUAGE_CODE == 'ar' %}EN{% else %}ع{% endif %}</a>
+  </div>
+  <div class="nw-socials">{% include "includes/social_links.html" with controls=global_controls %}</div>
 </header>
 <aside id="new-site-drawer" class="nw-drawer" data-newweb-drawer aria-hidden="true" inert>
   <div class="nw-drawer-bg"></div>
@@ -33,6 +36,11 @@
     <a href="/{{ LANGUAGE_CODE }}/projects/">{% if LANGUAGE_CODE == 'ar' %}المشاريع{% else %}Projects{% endif %}</a>
     <a href="/{{ LANGUAGE_CODE }}/news/">{% if LANGUAGE_CODE == 'ar' %}الأخبار والرؤى{% else %}News & Insights{% endif %}</a>
     <a href="/{{ LANGUAGE_CODE }}/contact/">{% if LANGUAGE_CODE == 'ar' %}تواصل معنا{% else %}Contact us{% endif %}</a>
-    <a class="nw-drawer-lang" href="{{ switch_url }}">{% if LANGUAGE_CODE == 'ar' %}English 🇺🇸{% else %}العربية 🇪🇬{% endif %}</a>
+    <a class="nw-drawer-hotline" href="tel:{% if global_controls %}{{ global_controls.hotline }}{% else %}17556{% endif %}">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2c.3-.3.8-.4 1.2-.2 1.3.5 2.7.8 4.1.8.7 0 1.3.6 1.3 1.3V21c0 .7-.6 1.3-1.3 1.3C10.2 22.3 1.7 13.8 1.7 3.3 1.7 2.6 2.3 2 3 2h3.9c.7 0 1.3.6 1.3 1.3 0 1.4.3 2.8.8 4.1.1.4.1.9-.2 1.2l-2.2 2.2Z"/></svg>
+      <span>{% if LANGUAGE_CODE == 'ar' %}الخط الساخن{% else %}Hotline{% endif %}: {% if global_controls %}{{ global_controls.hotline }}{% else %}17556{% endif %}</span>
+    </a>
+    <a class="nw-drawer-lang" href="{{ switch_url }}">{% if LANGUAGE_CODE == 'ar' %}EN{% else %}ع{% endif %}</a>
+    {% include "includes/social_links.html" with controls=global_controls %}
   </nav>
 </aside>

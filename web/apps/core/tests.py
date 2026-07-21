@@ -45,3 +45,18 @@ class PrimaryWebsiteTests(TestCase):
         context = content.get_preview_context(RequestFactory().get("/ar/"), "ar")
         self.assertEqual(context["t"]["hero_title"], "عنوان المعاينة")
         self.assertIs(context["site_controls"], content)
+
+    def test_shared_header_media_controls_and_project_links_render(self):
+        NewWebContent.objects.create(title="Website settings", hotline="17556")
+
+        arabic = self.client.get("/ar/")
+        self.assertContains(arabic, 'class="nw-lang-switch"')
+        self.assertContains(arabic, ">EN</a>")
+        self.assertContains(arabic, 'href="tel:17556"', count=2)
+        self.assertContains(arabic, 'data-video-sound-toggle')
+        self.assertContains(arabic, 'class="nw-project-card"', count=4)
+        self.assertContains(arabic, 'class="nw-project-hit"', count=3)
+        self.assertContains(arabic, 'class="nw-social-links"', count=3)
+
+        english = self.client.get("/en/")
+        self.assertContains(english, ">ع</a>")

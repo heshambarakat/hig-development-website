@@ -80,7 +80,7 @@ video {
   inset: 0 0 auto;
   z-index: 50;
   display: grid;
-  grid-template-columns: auto auto 1fr auto auto auto;
+  grid-template-columns: auto auto 1fr auto auto;
   gap: 1rem;
   align-items: center;
   padding: 1.25rem clamp(1rem, 3vw, 3rem);
@@ -171,6 +171,9 @@ video {
 }
 
 .nw-socials svg,
+.nw-social-links svg,
+.nw-hotline svg,
+.nw-drawer-hotline svg,
 .nw-whatsapp-float svg,
 .nw-back-to-top svg {
   width: 1.28rem;
@@ -184,16 +187,59 @@ video {
 }
 
 .nw-hotline {
+  display: inline-flex;
+  align-items: center;
+  gap: .42rem;
   color: white;
   font-size: 1rem;
   font-weight: 900;
   white-space: nowrap;
 }
 
+.nw-hotline svg,
+.nw-drawer-hotline svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  flex: 0 0 auto;
+  fill: currentColor;
+}
+
+.nw-header-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: .85rem;
+}
+
 .nw-socials {
   display: flex;
   align-items: center;
   gap: .78rem;
+}
+
+.nw-social-links {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+}
+
+.nw-social-links a,
+.nw-social-links span {
+  display: inline-flex;
+  width: 2.1rem;
+  height: 2.1rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, .16);
+  border-radius: 999px;
+  color: white;
+  background: rgba(255, 255, 255, .06);
+  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+}
+
+.nw-social-links a:hover {
+  transform: translateY(-2px);
+  border-color: var(--blue);
+  background: var(--blue);
 }
 
 .nw-socials a {
@@ -212,13 +258,11 @@ video {
   align-items: center;
   gap: .35rem;
   color: white;
-  font-size: .86rem;
+  min-width: 2rem;
+  justify-content: center;
+  font-size: .9rem;
   font-weight: 900;
   white-space: nowrap;
-}
-
-.nw-flag {
-  font-size: 1rem;
 }
 
 .nw-drawer {
@@ -332,6 +376,32 @@ video {
   margin-top: .8rem;
 }
 
+.nw-drawer-nav .nw-drawer-hotline {
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  color: var(--blue);
+  font-size: 1rem;
+}
+
+.nw-drawer-nav .nw-social-links {
+  margin-top: .7rem;
+}
+
+.nw-drawer-nav .nw-social-links span,
+.nw-drawer-nav .nw-social-links a {
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.nw-drawer-nav .nw-social-links a:hover {
+  transform: translateY(-2px);
+  color: white;
+}
+
 .nw-hero {
   position: relative;
   min-height: var(--hero-min-height);
@@ -409,6 +479,38 @@ video {
   font-weight: 900;
   letter-spacing: .45em;
   writing-mode: vertical-rl;
+}
+
+.nw-hero .video-sound-toggle {
+  position: absolute;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 6;
+  display: inline-flex;
+  width: 2.65rem;
+  height: 2.65rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, .22);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, .48);
+  color: white;
+  backdrop-filter: blur(8px);
+}
+
+[dir="rtl"] .nw-hero .video-sound-toggle {
+  right: auto;
+  left: 1.5rem;
+}
+
+.nw-hero .video-sound-toggle svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  fill: currentColor;
+}
+
+.nw-hero .video-sound-toggle .hidden {
+  display: none;
 }
 
 .nw-section {
@@ -500,6 +602,7 @@ html[dir="rtl"] .nw-contact h2 {
 }
 
 .nw-project-media {
+  display: block;
   position: relative;
   min-height: 680px;
   overflow: hidden;
@@ -563,6 +666,28 @@ html[dir="rtl"] .nw-contact h2 {
   margin-top: 1.3rem;
 }
 
+.nw-project-copy h2 .nw-project-title-link,
+.nw-project-lanes h2 .nw-project-title-link {
+  display: inline;
+  width: auto;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+}
+
+.nw-project-copy h2 .nw-project-title-link:hover,
+.nw-project-lanes h2 .nw-project-title-link:hover {
+  transform: none;
+  background: transparent;
+  color: var(--blue);
+}
+
 .nw-project-lanes {
   display: grid;
 }
@@ -575,6 +700,18 @@ html[dir="rtl"] .nw-contact h2 {
   padding: clamp(2rem, 5vw, 5rem);
   isolation: isolate;
   overflow: hidden;
+}
+
+.nw-project-hit {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
 }
 
 .nw-lane-video {
@@ -615,6 +752,8 @@ html[dir="rtl"] .nw-contact h2 {
 }
 
 .nw-project-lanes div {
+  position: relative;
+  z-index: 1;
   max-width: 760px;
 }
 
@@ -656,6 +795,15 @@ html[dir="rtl"] .nw-contact h2 {
   border-radius: var(--card-radius);
   background: white;
   box-shadow: 0 24px 60px rgba(5, 7, 10, .08);
+}
+
+.nw-project-card {
+  display: block;
+  color: inherit;
+}
+
+.nw-project-card article {
+  height: 100%;
 }
 
 .nw-card-grid img {
@@ -843,9 +991,26 @@ html[dir="rtl"] .nw-contact h2 {
   color: var(--muted);
 }
 
-.nw-footer div {
+.nw-footer > div:last-child {
   display: flex;
   gap: .8rem;
+}
+
+.nw-footer-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.nw-footer-brand .nw-social-links {
+  gap: .45rem;
+}
+
+.nw-footer-brand .nw-social-links span,
+.nw-footer-brand .nw-social-links a {
+  width: 2rem;
+  height: 2rem;
 }
 
 .nw-footer a {
@@ -939,11 +1104,10 @@ html[dir="rtl"] .nw-contact h2 {
 
 @media (max-width: 980px) {
   .nw-header {
-    grid-template-columns: auto auto 1fr auto;
+    grid-template-columns: auto 1fr auto;
   }
 
   .nw-nav,
-  .nw-hotline,
   .nw-socials {
     display: none;
   }
@@ -953,6 +1117,10 @@ html[dir="rtl"] .nw-contact h2 {
   }
 
   .nw-lang-switch {
+    justify-self: end;
+  }
+
+  .nw-header-meta {
     justify-self: end;
   }
 
@@ -995,8 +1163,37 @@ html[dir="rtl"] .nw-contact h2 {
 }
 
 @media (max-width: 640px) {
+  .nw-header {
+    gap: .65rem;
+    padding-inline: .85rem;
+  }
+
   .nw-brand img {
-    width: 92px;
+    width: 86px;
+  }
+
+  .nw-menu-button {
+    width: 2.9rem;
+    height: 2.9rem;
+  }
+
+  .nw-header-meta {
+    gap: .55rem;
+  }
+
+  .nw-hotline {
+    gap: .3rem;
+    font-size: .78rem;
+  }
+
+  .nw-hotline svg {
+    width: .95rem;
+    height: .95rem;
+  }
+
+  .nw-lang-switch {
+    min-width: 1.5rem;
+    font-size: .8rem;
   }
 
   .nw-hero {
@@ -1050,7 +1247,7 @@ html[dir="rtl"] .nw-contact h2 {
     grid-template-columns: 1fr;
   }
 
-  .nw-footer div {
+  .nw-footer > div:last-child {
     flex-wrap: wrap;
   }
 

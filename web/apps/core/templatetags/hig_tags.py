@@ -1,5 +1,7 @@
 from django import template
 
+from apps.core.models import NewWebContent
+
 
 register = template.Library()
 
@@ -21,3 +23,8 @@ def language_switch_url(context):
         parts[0] = target
         return "/" + "/".join(parts) + "/"
     return f"/{target}/"
+
+
+@register.simple_tag
+def get_site_controls():
+    return NewWebContent.objects.first()

@@ -13,7 +13,7 @@ from apps.projects.models import ProjectDetailPage, ProjectsIndexPage
 
 ROOT = Path(__file__).resolve().parents[5]
 ASSETS = ROOT / "assets"
-HIG_HERO_VIDEO = "/static/videos/hig/hig-hero.mp4"
+HIG_HERO_VIDEO = "/static/videos/hig/hig-hero-web.mp4"
 BARAH_HERO_VIDEO = "/static/videos/barah/barah-hero.mp4"
 
 

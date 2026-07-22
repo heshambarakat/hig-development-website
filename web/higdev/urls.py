@@ -10,12 +10,13 @@ from wagtail.documents import urls as wagtaildocs_urls
 from wagtail.contrib.sitemaps.views import sitemap
 
 from apps.leads.views import submit_lead
-from apps.core.views import newweb_preview
+from apps.core.views import healthcheck, newweb_preview
 from apps.seo.views import robots_txt
 from apps.tracking.views import track_event
 
 
 urlpatterns = [
+    path("healthz/", healthcheck, name="healthcheck"),
     path("", lambda request: redirect("/ar/", permanent=False), name="root_redirect"),
     path("ar/", newweb_preview, {"lang": "ar"}, name="primary_home_ar"),
     path("en/", newweb_preview, {"lang": "en"}, name="primary_home_en"),

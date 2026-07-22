@@ -1,0 +1,47 @@
+services:
+  - type: web
+    name: hig-development
+    runtime: python
+    plan: free
+    rootDir: web
+    buildCommand: bash deploy/render-build.sh
+    startCommand: gunicorn higdev.wsgi:application --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 120 --access-logfile -
+    healthCheckPath: /healthz/
+    autoDeployTrigger: commit
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.10
+      - key: DJANGO_DEBUG
+        value: "False"
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: DJANGO_ALLOWED_HOSTS
+        value: hig-dev.net,www.hig-dev.net,.onrender.com
+      - key: DJANGO_CSRF_TRUSTED_ORIGINS
+        value: https://hig-dev.net,https://www.hig-dev.net,https://*.onrender.com
+      - key: DATABASE_SSL_REQUIRE
+        value: "True"
+      - key: SITE_DOMAIN
+        value: hig-dev.net
+      - key: DATABASE_URL
+        sync: false
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false
+      - key: AWS_STORAGE_BUCKET_NAME
+        sync: false
+      - key: AWS_S3_ENDPOINT_URL
+        sync: false
+      - key: AWS_S3_REGION_NAME
+        value: us-east-1
+      - key: AWS_S3_ADDRESSING_STYLE
+        value: path
+      - key: AWS_QUERYSTRING_AUTH
+        value: "False"
+      - key: DJANGO_SUPERUSER_USERNAME
+        sync: false
+      - key: DJANGO_SUPERUSER_EMAIL
+        sync: false
+      - key: DJANGO_SUPERUSER_PASSWORD
+        sync: false

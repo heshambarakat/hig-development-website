@@ -6,6 +6,11 @@ from apps.core.models import NewWebContent
 
 
 class PrimaryWebsiteTests(TestCase):
+    def test_healthcheck_is_available_without_page_content(self):
+        response = self.client.get("/healthz/")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {"status": "ok"})
+
     def test_root_redirects_to_arabic_primary_home(self):
         response = self.client.get("/")
         self.assertRedirects(response, "/ar/", fetch_redirect_response=False)

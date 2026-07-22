@@ -1,6 +1,11 @@
+from django.http import JsonResponse
 from django.shortcuts import redirect, render
 
 from apps.core.models import NewWebContent
+
+
+def healthcheck(request):
+    return JsonResponse({"status": "ok"})
 
 
 NEWWEB_COPY = {

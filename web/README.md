@@ -145,6 +145,18 @@ python manage.py check --deploy
 python manage.py collectstatic
 ```
 
+## النشر المجاني المؤقت على Render
+
+المشروع يحتوي على `render.yaml` و`deploy/render-build.sh` لتجهيز خدمة Django تلقائيا. الخطة المناسبة للتجربة والمراجعة هي:
+
+- Render Free Web Service لتشغيل Django وربط `hig-dev.net` وإصدار HTTPS.
+- Supabase أو Neon لقاعدة PostgreSQL دائمة خارج قرص Render المؤقت.
+- تخزين S3-compatible مثل Supabase Storage لصور Wagtail التي يرفعها المحرر.
+
+بعد إنشاء قاعدة البيانات أضف `DATABASE_URL` في متغيرات Render. ولحفظ صور Wagtail أضف قيم `AWS_*` الموضحة في `.env.example`. ضع بيانات أول مدير في متغيرات `DJANGO_SUPERUSER_*` أثناء أول Build فقط، ثم احذف كلمة المرور من المتغيرات بعد نجاح إنشاء المستخدم.
+
+خدمة Render المجانية تتوقف عند عدم وجود زيارات وقد تستغرق قرابة دقيقة في أول طلب بعد التوقف، لذلك هي مناسبة للمراجعة وليست بديلا نهائيا عن VPS إنتاجي.
+
 ## تحديث الموقع لاحقاً
 
 كل المحتوى المهم يجب تحديثه من Wagtail وليس من الكود:

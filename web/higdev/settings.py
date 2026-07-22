@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
-from urllib.parse import urlparse
 
+import dj_database_url
 from dotenv import load_dotenv
 
 
@@ -96,16 +96,13 @@ def database_config():
             }
         }
 
-    parsed = urlparse(database_url)
     return {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": parsed.path.lstrip("/"),
-            "USER": parsed.username,
-            "PASSWORD": parsed.password,
-            "HOST": parsed.hostname,
-            "PORT": parsed.port or 5432,
-        }
+        "default": dj_database_url.parse(
+            database_url,
+            conn_max_age=600,
+            conn_health_checks=True,
+            ssl_require=os.getenv("DATABASE_SSL_REQUIRE", str(not DEBUG)).lower() == "true",
+        )
     }
 
 
@@ -130,6 +127,32 @@ WHITENOISE_USE_FINDERS = DEBUG
 WHITENOISE_MAX_AGE = 0 if DEBUG else 31536000
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+STORAGES = {
+    "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+    "staticfiles": {
+        "BACKEND": (
+            "django.contrib.staticfiles.storage.StaticFilesStorage"
+            if DEBUG
+            else "whitenoise.storage.CompressedManifestStaticFilesStorage"
+        )
+    },
+}
+
+if os.getenv("AWS_STORAGE_BUCKET_NAME") and os.getenv("AWS_S3_ENDPOINT_URL"):
+    STORAGES["default"] = {
+        "BACKEND": "storages.backends.s3.S3Storage",
+        "OPTIONS": {
+            "access_key": os.getenv("AWS_ACCESS_KEY_ID"),
+            "secret_key": os.getenv("AWS_SECRET_ACCESS_KEY"),
+            "bucket_name": os.getenv("AWS_STORAGE_BUCKET_NAME"),
+            "endpoint_url": os.getenv("AWS_S3_ENDPOINT_URL"),
+            "region_name": os.getenv("AWS_S3_REGION_NAME", "us-east-1"),
+            "addressing_style": os.getenv("AWS_S3_ADDRESSING_STYLE", "path"),
+            "querystring_auth": os.getenv("AWS_QUERYSTRING_AUTH", "False").lower() == "true",
+            "file_overwrite": False,
+        },
+    }
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 WAGTAIL_SITE_NAME = "HIG Development"

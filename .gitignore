@@ -24,6 +24,8 @@ shareid-context.txt
 
 # Original 200 MB master; the optimized web encode is tracked instead.
 web/static/videos/barah/final-x.mp4
+web/static/videos/hig/hig-hero.mp4
+web/static/videos/caza/caza-hero.mp4
 
 # OS / editor files
 .DS_Store
